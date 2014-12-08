@@ -1,0 +1,52 @@
+.footer {
+	text-align: center;
+	color: #FFFFFF;
+	margin-top: 10px;
+	font-family: "Tahoma";
+}
+
+.content{
+	padding: 10px;
+}
+
+#databuku thead th{
+	text-align: center;
+	background-color: #FFB6AC;
+}
+
+#databuku tbody{
+	font-size: 12px;
+}
+
+.pagination{
+	display: block;
+	color: #BBFF20;
+	border: 1px;
+}
+
+.pagination a {
+	padding: 2px 5px 2px 5px;
+	margin-right: 2px;
+	border: 1px solid #9AAFF5;
+	text-decoration: none;
+}
+
+.pagination a:hover {
+	background-color: #FFB6AC;
+}
+
+.frmlogin{
+	border: 2px solid #9AAFF5;
+	background-color: #FFB6AC;
+	padding: 15px;
+	width: 98%;
+	margin: 0 auto;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+h3{
+	font-weight: bold;
+	color: #9AAFF5;
+}
