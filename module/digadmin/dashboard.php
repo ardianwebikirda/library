@@ -30,6 +30,8 @@ if($_SESSION['login'] != 1){
 	<!-- Date Picker -->
 	<link rel="stylesheet" type="text/css" href="../../lib/css/bootstrap-datetimepicker.min.css">
 
+	<!-- Jquery - UI -->
+	<link rel="stylesheet" type="text/css" href="../../lib/css/jquery-ui.css">
 	<!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -83,7 +85,10 @@ if($_SESSION['login'] != 1){
 						<a href="?hal=masterbuku"><i class="fa fa-fw fa-book"></i>&nbsp;Data Buku</a>
 					</li>
 					<li>
-						<a href="?hal=masteranggota"><i class="fa fa-fw fa-user"></i>&nbsp;Data Anggota</a>
+						<a href="?hal=masterpenulis"><i class="fa fa-fw fa-user"></i>&nbsp;Data Penulis</a>
+					</li>
+					<li>
+						<a href="?hal=masteranggota"><i class="fa fa-fw fa-users"></i>&nbsp;Data Anggota</a>
 					</li>
 					<li>
 						<a href="?hal=peminjaman"><i class="fa fa-fw fa-desktop"></i>&nbsp;Peminjaman</a>
@@ -106,22 +111,25 @@ if($_SESSION['login'] != 1){
 
 				switch($hal){
 					case "":
-						include "module/dashboard.php";
+						include "module/chart/chart.php";
 						break;					
 					default:
-						include "module/dashboard.php";
+						include "module/chart/chart.php";
 						break;
 					case "dashboard":
-						include "module/dashboard.php";
+						include "module/chart/chart.php";
 						break;
 					case "masterbuku":
 						include "module/buku/buku.php";
 						break;
+					case "masterpenulis":
+						include "module/penulis/penulis.php";
+						break;
 					case "masteranggota":
-						include "module/anggota/masteranggota.php";
+						include "module/anggota/anggota.php";
 						break;	
 					case "peminjaman":
-						include "module/peminjaman.php";
+						include "module/peminjaman/viewportPeminjaman.php";
 						break;
 					case "pengembalian":
 						include "module/pengembalian.php";
@@ -140,12 +148,10 @@ if($_SESSION['login'] != 1){
 
 	</div><!-- ./End Of Wrapper-->
 
-	<!-- Call JQuery Library -->
-	<script src="../../lib/js/jquery.js" type="text/javascript"></script>
+	<!-- Call JQuery Library 
+	<script src="../../lib/js/jquery.js" type="text/javascript"></script> -->
 	<script src="../../lib/js/jquery.min.js" type="text/javascript"></script>
-	<script src="../../lib/js/typeahead.bundle.js" type="text/javascript"></script>
-	<script src="../../lib/js/jqBootstrapValidation.js" type="text/javascript"></script>
-	<script src="../../lib/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+	<script src="../../lib/js/jquery-ui.js" type="text/javascript"></script>
 
 	<!-- Call Bootstrap Core JS -->
 	<script src="../../lib/js/bootstrap.min.js" type="text/javascript"></script>
@@ -153,35 +159,10 @@ if($_SESSION['login'] != 1){
 	<!-- Call DataTables Library -->
 	<script src="../../lib/js/jquery.dataTables.js" type="text/javascript"></script>
 
-	<!-- Call Morris Chart Library  -->
+	<!-- Call Morris Chart Library  
 	<script src="../../lib/js/plugins/morris/raphael.min.js" type="text/javascript"></script>
 	<script src="../../lib/js/plugins/morris/morris.min.js" type="text/javascript"></script>
-	<script src="../../lib/js/plugins/morris/morris-data.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		$('.tanggal').datetimepicker({
-			weekStart: 1,
-	    	todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			minView: 2,
-			forceParse: 0
-		});
-
-		$('.poy').datetimepicker({
-			weekStart: 1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			minView: 2,
-			forceParse: 0
-		});
-
-		$(function(){
-			$("input, select, textarea").not("[type=submit]").jqBootstrapValidation();
-		});
-
-	</script>
+	<script src="../../lib/js/plugins/morris/morris-data.js" type="text/javascript"></script> -->
 
 </body>
 </html>

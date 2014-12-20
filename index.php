@@ -7,14 +7,15 @@
 		<!-- Bootsrap CSS -->
 		<link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css" media="screen">
 		<link rel="stylesheet" type="text/css" href="lib/css/layout.css">
-	</head>
+		<link rel="stylesheet" type="text/css" href="lib/css/sweet-alert.css">
 	<body>
 		<!-- JS File -->
 		<script src="lib/js/jquery.min.js"></script>
 		<script src="lib/js/bootstrap.min.js"></script>
+		<script src="lib/js/sweet-alert.js"></script>
 
 		<!-- Javascript Login function -->
-		<script src="lib/js/login.js"></script>
+<script src="function/js/login.js"></script>
 
 		<nav class="navbar navbar-inverse" role="navigation">
 		  <div class="container-fluid">
@@ -34,8 +35,8 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
-		      	<li class="active"><a href="?page=home">Home<span class="sr-only">(current)</span></a></li>
-		        <li class="active" data-toggle="modal" target="#digLogin"><a href="?page=login">Login<span class="sr-only">(current)</span></a></li>
+		      	<li class="active"><a href="?page=home" id="home">Home<span class="sr-only">(current)</span></a></li>
+		        <li class="active"><a href="?page=login" id="login">Login<span class="sr-only">(current)</span></a></li>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
@@ -44,27 +45,20 @@
 		<!-- Content -->
 		<div class="content">
 			<?php
-				/* Memanggil Koneksi Darabase */
-				include "bin/koneksi.php";
+				$hal = $_GET['page'];
 
-				/*
-				* Variabel page yang akan menangkap value dari parameter page 
-				* Menggunakan  method GET 
-				*/
-				$page = $_GET['page'];
-
-				switch($page){
+				switch($hal){
 					case "":
-						include "module/list_buku.php";
+						include "list_buku.php";
 						break;					
 					default:
-						include "module/list_buku.php";
+						include "list_buku.php";
 						break;
 					case "home":
-						include "module/list_buku.php";
-						break;	
+						include "list_buku.php";
+						break;
 					case "login":
-						include "module/login.php";
+						include "login.php";
 						break;
 				}
 			?>
