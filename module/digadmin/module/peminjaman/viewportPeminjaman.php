@@ -65,7 +65,16 @@ if($_SESSION['login'] != 1){
 					</div>
 					<div class="tab-pane" id="panel-detail-peminjaman">
 						<p>
-							Detail Peminjaman Content is Here
+							<?php 
+								include "module/peminjaman/detailPeminjaman.php"; 
+								$hal = $_GET['hal'];
+
+								switch($hal){
+								case "detailPinjaman":
+									include "module/peminjaman/gridPeminjaman.php";
+									break;
+								}
+							?>
 						</p>
 					</div>
 				</div>

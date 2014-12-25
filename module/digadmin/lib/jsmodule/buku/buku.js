@@ -24,7 +24,7 @@
 			$('#cd-update').show();
 		}
 
-
+		/* Function Pertama Yang Akan DiLoad */
 		resetForm();
 		$('#cd-update').hide();
 		

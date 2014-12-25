@@ -31,6 +31,7 @@ $(document).ready(function() {
 		});
 	}
 
+	/* Function Pertama Yang Akan DiLoad */
 	resetForm();
 	$('#cd-update').hide();
 	

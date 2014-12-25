@@ -3,10 +3,11 @@ $(document).ready(function() {
 	/* Fungsi Mereset Form */
 	function resetForm() {
 		$('#save').removeAttr('disabled');
-		$('#update, #delete, #reset, #cd-update').attr('disabled','disabled');
+		$('#cd-update').attr('disabled','disabled');
 		$('label, #firstname, #lastname, #email').removeAttr('disabled');
 		$('#action').show();
 		$('#cd-update').hide();
+		$('.deta').hide();
 		$('input[type=text]').each(function(){
 			$(this).val("");
 		});
@@ -19,16 +20,9 @@ $(document).ready(function() {
 	*/
 	function dockingForm(){
 		$('#save').attr('disabled', 'disabled');
-		$('#update, #delete, #reset, #cd-update').removeAttr('disabled');
+		$('#cd-update').removeAttr('disabled');
 		$('#action').hide();
 		$('#cd-update').show();
-	}
-
-	function validbro(){
-		/* Jquery Bootstrap Validation */
-		$(function(){
-			$("input, select, textarea").not("[type=submit]").jqBootstrapValidation();
-		});
 	}
 
 	resetForm();
@@ -39,15 +33,18 @@ $(document).ready(function() {
 		jQueryUI: true
 	});
 
+	$('#daftarpeminjaman').DataTable({
+		jQueryUI: true
+	});
+
 	/* JQuery Save Function */
 	$('#save').click(function(){
 
-		var aksi 		= $('#save').val();
-		var firstname 	= $('#firstname').val();
-		var lastname 	= $('#lastname').val();
-		var email 		= $('#email').val();
+		var aksi 			= $('#save').val();
+		var codeanggota 	= $('#codeanggota').val();
+		var codebuku 		= $('#codebuku').val();
 
-		if( firstname=="" || lastname=="" ||  email=="" ){
+		if( codeanggota=="" || codebuku=="" ){
 			/* Jquery Bootstrap Validation */
 			$(function(){
 				$("input, select, textarea").not("[type=submit]").jqBootstrapValidation();
@@ -57,13 +54,12 @@ $(document).ready(function() {
 			$.ajax({
 				type 	: 'POST',
 				data 	: {
-					aksi 		: aksi,
-					firstname 	: firstname,
-					lastname 	: lastname,
-					email 		: email
+					aksi 			: aksi,
+					codeanggota 	: codeanggota,
+					codebuku 		: codebuku,
 				},
 				dataType 	: 'json',
-				url 		: 'module/penulis/aksipenulis.php',
+				url 		: 'module/peminjaman/aksipeminjaman.php',
 				success : function(data){
 					alert(data.pesan);
 					resetForm();
@@ -73,49 +69,29 @@ $(document).ready(function() {
 		}
 	});
 
-	/* JQuery Update Function */
-	$('#update').click(function(){
-		var aksi 		= "update";
-		var code 		= $('#cd-update').val();
-		var firstname 	= $('#firstname').val();
-		var lastname 	= $('#lastname').val();
-		var email 		= $('#email').val();
-
-		/* Request Ajax */
-		$.ajax({
-		type 	: 'POST',
-		data 	: {
-			aksi 		: aksi,
-			code 		: code,
-			firstname 	: firstname,
-			lastname 	: lastname,
-			email 		: email
-		},
-	 	dataType 	: 'json',
-	 	url 		: 'module/penulis/aksipenulis.php',
-	 	success : function(data){
-	 		alert(data.pesan);
-	 		resetForm();
-	 		location.reload(); 
-	 	}
-		});
-	});
-
-	/* JQuery Delete Function */
-	$('#delete').click(function(){
-		var aksi = "delete";
-		var code = $('#cd-update').val();
+	/* JQuery Syncronize Function */
+	$('#syncronize').click(function(){
+		var aksi = "syncronize";
 		$.ajax({
 			type 		: 'POST',
-			data 		: {aksi:aksi, code:code},
-			dataType	: 'json',
-			url 		: 'module/penulis/aksipenulis.php',
+			data 		: {
+				aksi : aksi
+			},
+			dataType 	: 'JSON',
+			url			: 'module/peminjaman/aksipeminjaman.php',
 			success:function(data){
 				alert(data.pesan);
 				resetForm();
 				location.reload();
 			}
 		});
+	});
+
+	/* JQuery Load Detail Pemijaman Function */
+	$('#loadDetail').click(function(){
+		$('.formDetail').hide();
+		$('.daft').hide();
+		$('.deta').show();
 	});
 
 	/* 
@@ -127,28 +103,51 @@ $(document).ready(function() {
 		dockingForm();
 	});
 
-	/* JQuery Get Code Buku Function */
-	$('#cd-update').autocomplete({
-		source : 'module/penulis/aksipenulis.php',
+	/* JQuery Auto Compelete Get Code Anggota Function */
+	$('#codeanggota').autocomplete({
+		source : 'module/peminjaman/getDataAnggota.php'
 	});
 
-	/* JQuery Load Data to Form Function */
-	$('#cd-update').keyup(function(oe){
+	/* JQuery Auto Compelete Get Code Buku Function */
+	$('#codebuku').autocomplete({
+		source : 'module/peminjaman/getDataBuku.php'
+	});
+
+	/* JQuery Auto Compelete Get No Peminjaman Function */
+	$('#nopeminjaman').autocomplete({
+		source : 'module/peminjaman/getNoPinjaman.php'
+	}); 
+
+	/* JQuery Load Data Nama Anggota Function */
+	$('#codeanggota').keyup(function(oe){
 		
-		var code = $('#cd-update').val();
-		var aksi = "load";
+		var code = $('#codeanggota').val();
+		var aksi = "loadanggota";
 		$.ajax({
-			url  		: 'module/penulis/aksipenulis.php',
+			url  		: 'module/peminjaman/aksipeminjaman.php',
 			data 		: {code:code, aksi:aksi},
 			type 		: 'POST',
 			dataType 	: 'json',
 			success:function(data){
-				$('#firstname').val(data.firstname);
-				$('#lastname').val(data.lastname);
-				$('#email').val(data.email);
+				$('#nama').val(data.name);
 			}
 		});
-		$('label, #firstname, #lastname, #email').removeAttr('disabled');
+	});
+
+	/* JQuery Load Data Nama Buku Function */
+	$('#codebuku').keyup(function(oe){
+		
+		var code = $('#codebuku').val();
+		var aksi = "loadbuku";
+		$.ajax({
+			url  		: 'module/peminjaman/aksipeminjaman.php',
+			data 		: {code:code, aksi:aksi},
+			type 		: 'POST',
+			dataType 	: 'json',
+			success:function(data){
+				$('#judul-buku').val(data.name);
+			}
+		});
 	});
 
 	/* Jquery Event Reset Button Click */

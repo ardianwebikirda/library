@@ -1,3 +1,16 @@
+					<style type="text/css">
+					#judul-buku{
+						font-weight: bold;
+						font-size: 14px;
+						color: #4A9900;
+					}
+
+					#nama{
+						font-weight: bold;
+						font-size: 14px;
+						color: #4A9900;
+					}
+					</style>
 					<!-- Container datagrid dan form -->
 					<div class="container-fluid">
 						<div class="row-fluid clearfix">
@@ -14,7 +27,7 @@
 
 									<div class="form-group">
 										<label>Code Angoota</label>
-										<input type="text" class="form-control" id="code-anggota" name="code-anggota" 
+										<input type="text" class="form-control" id="codeanggota" name="codeanggota" 
 										maxlength="50" required	placeholder="Masukan Code Anggota ...">
 
 										<label>Nama Anggota</label>
@@ -22,15 +35,15 @@
 										required disabled="disabled" />
 
 										<label>Code Buku</label>
-										<input type="text" class="form-control" id="code-buku" name="code-buku" required>
+										<input type="text" class="form-control" id="codebuku" name="codebuku" 
+										required placeholder="Masukan Code Buku">
 										
 										<label>Judul Buku</label>
 										<input type="text" class="form-control" id="judul-buku" name="judul-buku" 
 										disabled="disabled" required> 
 									</div>
-									<button type="submit" id="save" name="save" class="btn btn-sm btn-success">Save</button>
-									<button type="button" id="update" name="update" class="btn btn-sm btn-warning">Update</button>
-									<button type="button" id="delete" name="delete" class="btn btn-sm btn-danger">Delete</button>	
+									<button type="submit" id="save" name="save" value="save" class="btn btn-sm btn-success">Tambah</button>
+									<button type="button" id="syncronize" name="syncronize" class="btn btn-sm btn-warning">Syncronize</button>
 									<button type="reset" id="reset" class="btn btn-sm btn-primary">Reset</button>						
 								</form><!-- /. End Form CRUD Book Master -->
 							</div><!-- /. End Form Place -->
@@ -50,19 +63,22 @@
 										<?php
 											include "../../bin/koneksi.php";
 
-											$sql 	= "SELECT * FROM tm_buku ORDER BY code ASC";
+											$sql 	= "SELECT * FROM view_pinjam ORDER BY namabuku ASC";
 											$hasil 	= $konek->query($sql);
 											while($row = $hasil->fetch_assoc()){
 												extract($row);
 
 												echo"
 													<tr>
-														<td>{$code}</td>
-														<td>{$name}</td>
-														<td>{$publisher}</td>
-														<td>{$status}</td>
-													</tr>
-												";
+														<td>{$namaanggota}</td>
+														<td>{$namabuku}</td>
+														<td>{$tgl_pinjam}</td>
+														<td>
+															<a href='module/peminjaman/aksipeminjaman.php?id=$row[id_temp]&code=$row[codebook]'>
+															<button class='btn btn-sm btn-danger'>Delete</button>
+															</a>
+														</td>
+													</tr>";
 											}
 										?>                		
 									</tbody>

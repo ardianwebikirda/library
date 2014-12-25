@@ -3,28 +3,30 @@
 	include "../../../../bin/koneksi.php";
 	
 	$code_buku = strtolower($_GET['term']);
-		/*
-		* Auto Number Untuk Code Penulis 
-		*/
-		function autonum($lebar=0, $awalan=''){
-			include "../../../../bin/koneksi.php";
-			$sqlcount= "SELECT code_anggota FROM tm_anggota ORDER BY code_anggota desc";
-			$hasil= $konek->query($sqlcount);
-			$jumlahrecord = mysqli_num_rows($hasil);
 
-			if($jumlahrecord == 0)
-				$nomor=1;
-			else {
-				$nomor = $jumlahrecord+1;
-			}
+	/*
+	* Auto Number Untuk Code Penulis 
+	*/
+	function autonum($lebar=0, $awalan=''){
+		include "../../../../bin/koneksi.php";
+		$sqlcount= "SELECT code_anggota FROM tm_anggota ORDER BY code_anggota desc";
+		$hasil= $konek->query($sqlcount);
+		$jumlahrecord = mysqli_num_rows($hasil);
 
-			if($lebar>0)
-				$angka = $awalan.str_pad($nomor,$lebar,"0",STR_PAD_LEFT);
-			else
-				$angka = $awalan.$nomor;
-			return $angka;
+		if($jumlahrecord == 0)
+			$nomor=1;
+		else {
+			$nomor = $jumlahrecord+1;
 		}
+
+		if($lebar>0)
+			$angka = $awalan.str_pad($nomor,$lebar,"0",STR_PAD_LEFT);
+		else
+			$angka = $awalan.$nomor;
+		return $angka;
+	}
 	
+	/* Jika Tombol Save Di Klik */
 	if($_POST['aksi']=='save'){
 		
 		$code 		= autonum(4,"USR");
@@ -66,7 +68,7 @@
 		/* Input to Database */
 		$insert = $konek->query($sqlSave);
 
-		/*Jika Code Penulis Kembar */
+		/* Pengecekan Code Penulis Untuk Menghindari Pembuatan Code Penulis Yang Sama */
 		if($cekData == 0){
 
 			/* Cek Data After Insert */
@@ -77,7 +79,6 @@
 				$pesan 		= "Data Berhasil Disimpan";
 				$response 	= array('pesan'=>$pesan, 'data'=>array($code, $name, $phone, $email));
 				echo json_encode($response);
-
 			} else {
 				$pesan 		= "Gagal Menyimpan Data";
 				$response 	= array('pesan'=>$pesan, 'data'=>array($code, $name, $phone, $email));
@@ -88,13 +89,17 @@
 			$response 	= array('pesan'=>$pesan, 'data'=>array($name, $phone, $email));
 			echo json_encode($response);
 		}
+
+	/* Fungsi Auto complete untuk JQuery */
 	}elseif($code_buku){
 		$sqlFind	= "SELECT code_anggota FROM tm_anggota WHERE lower(code_anggota) LIKE '%$code%'";
 		$hasilFind	= $konek->query($sqlFind);
 		while($row 	= $hasilFind->fetch_assoc()){
 			$data 	= $row;
 		}
-		echo json_encode($data);	
+		echo json_encode($data);
+
+	/* Fungsi Untuk Meload data kedalam Form */	
 	} elseif($_POST['aksi']=='load'){
 		$code = $_POST['code'];
 		$sqlFind 	= "SELECT * FROM tm_anggota WHERE code_anggota = '$code'";
@@ -107,21 +112,38 @@
 			);
 		}
 		echo json_encode($data['data']);
+
+	/* 
+	* Jika Tombol Delete Di Klik
+	* Sebenarnya Fungsi Delete Disini Kita Tidak Benar-benar Menghapus 
+	* Untuk Penjelasan Silahkan Baca Tentang Bisnis Proses pada Ebook / Buku  
+	*/
 	} elseif($_POST['aksi']=='delete'){
 		$code = $_POST['code'];
 
 		/* Query DELETE */
-		$sqlFind 	= "DELETE FROM tm_anggota WHERE code_anggota = '$code'";
-		$hasilFind	= $konek->query($sqlFind);
-		if($hasilFind){
-			$pesan 	= "Data Berhasil Dihapus";
-			$data 	= array('pesan'=>$pesan, 'data'=>$_POST); 
-			echo json_encode($data);
-		}else{
-			$pesan = "Data Gagal Dihapus";
-			$data 	= array('pesan'=>$pesan, 'data'=>$_POST); 
+		$sqlFind 	= "UPDATE tm_anggota SET active='N' WHERE code_anggota = '$code'";
+		$cekHapus 	= "SELECT code_anggota FROM temp_peminjaman WHERE code_anggota = '$code'";
+		$queryCek 	= $konek->query($cekHapus);
+		$foundData	= mysqli_num_rows($queryCek);
+		if($foundData == 0){
+			$hasilFind	= $konek->query($sqlFind);
+			if($hasilFind){
+				$pesan 	= "Data Berhasil Dihapus";
+				$data 	= array('pesan'=>$pesan, 'data'=>$_POST); 
+				echo json_encode($data);
+			}else{
+				$pesan = "Data Gagal Dihapus";
+				$data 	= array('pesan'=>$pesan, 'data'=>$_POST); 
+				echo json_encode($data);
+			}
+		} else {
+			$pesan = "Terdapat Data Berelasi, Anda Tidak Mengghapus Sebelum Menghapus Child Datanya..! ";
+			$data = array('pesan'=>$pesan, 'data'=>'Tidak Ada Data');
 			echo json_encode($data);
 		}
+
+	/* Jika Tombol Update DiKlik */
 	}elseif($_POST['aksi']=='update'){
 		$code 		= strip_tags($_POST['code']);
 		$name = strip_tags($_POST['name']);

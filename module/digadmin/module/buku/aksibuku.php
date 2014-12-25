@@ -3,28 +3,30 @@
 	include "../../../../bin/koneksi.php";
 	
 	$code_buku = strtolower($_GET['term']);
-		/*
-		* Auto Number Untuk Code Buku 
-		*/
-		function autonum($lebar=0, $awalan=''){
-			include "../../../../bin/koneksi.php";
-			$sqlcount= "SELECT code from tm_buku order by code desc";
-			$hasil= $konek->query($sqlcount);
-			$jumlahrecord = mysqli_num_rows($hasil);
-
-			if($jumlahrecord == 0)
-				$nomor=1;
-			else {
-				$nomor = $jumlahrecord+1;
-			}
-
-			if($lebar>0)
-				$angka = $awalan.str_pad($nomor,$lebar,"0",STR_PAD_LEFT);
-			else
-				$angka = $awalan.$nomor;
-			return $angka;
-		}
 	
+	/*
+	* Auto Number Untuk Code Buku 
+	*/
+	function autonum($lebar=0, $awalan=''){
+		include "../../../../bin/koneksi.php";
+		$sqlcount= "SELECT code from tm_buku order by code desc";
+		$hasil= $konek->query($sqlcount);
+		$jumlahrecord = mysqli_num_rows($hasil);
+
+		if($jumlahrecord == 0)
+			$nomor=1;
+		else {
+			$nomor = $jumlahrecord+1;
+		}
+
+		if($lebar>0)
+			$angka = $awalan.str_pad($nomor,$lebar,"0",STR_PAD_LEFT);
+		else
+			$angka = $awalan.$nomor;
+		return $angka;
+	}
+
+	/* Jika Tombol Save Diklik */	
 	if($_POST['aksi']=='save'){
 		
 		$code 		= autonum(3,"DIG");
@@ -81,6 +83,8 @@
 			$cekInsertData 	= "SELECT code FROM tm_buku WHERE code='$code'";
 			$outputInsert 	= $konek->query($cekInsertData);
 			$cekDataInsert	= mysqli_num_rows($outputInsert);
+
+			/* JIka Data Berhasil Disimpan */
 			if($cekDataInsert == 1){
 				$pesan 		= "Data Berhasil Disimpan";
 				$response 	= array('pesan'=>$pesan, 'data'=>$_POST);
@@ -95,13 +99,15 @@
 			$response 	= array('pesan'=>$pesan, 'data'=>$_POST);
 			echo json_encode($response);
 		}
+	/* Fungsi PHP untuk Autocomplete JQuery */
 	}elseif($code_buku){
 		$sqlFind	= "SELECT code FROM tm_buku WHERE lower(code) LIKE '%$code_buku%'";
 		$hasilFind	= $konek->query($sqlFind);
 		while($row 	= $hasilFind->fetch_assoc()){
 			$data 	= $row;
 		}
-		echo json_encode($data);	
+		echo json_encode($data);
+	/* Fungsi PHP Untuk Load Data ke Form*/	
 	} elseif($_POST['aksi']=='load'){
 		$code = $_POST['code'];
 		$sqlFind 	= "SELECT * FROM view_buku_penulis WHERE code = '$code'";
@@ -116,21 +122,32 @@
 			);
 		}
 		echo json_encode($data['data']);
+	/* Jika Tombol Delete Di Klik */
 	} elseif($_POST['aksi']=='delete'){
 		$code = $_POST['code'];
 
 		/* Query DELETE */
 		$sqlFind 	= "DELETE FROM tm_buku WHERE code = '$code'";
-		$hasilFind	= $konek->query($sqlFind);
-		if($hasilFind){
-			$pesan 	= "Data Berhasil Dihapus";
-			$data 	= array('pesan'=>$pesan, 'data'=>$_POST); 
-			echo json_encode($data);
-		}else{
-			$pesan = "Data Gagal Dihapus";
-			$data 	= array('pesan'=>$pesan, 'data'=>$_POST); 
+		$cekHapus 	= "SELECT code_buku FROM temp_peminjaman WHERE code_buku = '$code'";
+		$queryCek 	= $konek->query($cekHapus);
+		$foundData	= mysqli_num_rows($queryCek);
+		if($foundData == 0){
+			$hasilFind	= $konek->query($sqlFind);
+			if($hasilFind){
+				$pesan 	= "Data Berhasil Dihapus";
+				$data 	= array('pesan'=>$pesan, 'data'=>$_POST); 
+				echo json_encode($data);
+			}else{
+				$pesan = "Data Gagal Dihapus";
+				$data 	= array('pesan'=>$pesan, 'data'=>$_POST); 
+				echo json_encode($data);
+			}			
+		} else {
+			$pesan = "Terdapat Data Berelasi, Anda Tidak Mengghapus Sebelum Menghapus Child Datanya..! ";
+			$data = array('pesan'=>$pesan, 'data'=>'Tidak Ada Data');
 			echo json_encode($data);
 		}
+	/* Jika Tombol Update Di Klik */
 	}elseif($_POST['aksi']=='update'){
 		$code 		= strip_tags($_POST['code']);
 		$judul 		= strip_tags($_POST['judul']);

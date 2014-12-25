@@ -51,10 +51,7 @@ function login(){
 	        * Sedangkan jika gagal akan menampilkan teks gagal login
 	        */
 			success: function(pesan){
-				swal({
-					title : pesan,
-					timer : 6000
-				});
+				alert(pesan);
 				window.location = 'module/digadmin/dashboard.php';	
 			},
 

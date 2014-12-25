@@ -24,6 +24,7 @@ $(document).ready(function() {
 		$('#cd-update').show();
 	}
 
+	/* Fungsi Yang Pertama Kali Diload */
 	resetForm();
 	$('#cd-update').hide();
 	
@@ -41,7 +42,7 @@ $(document).ready(function() {
 		var email 	= $('#email').val();
 
 		if( name=="" || phone=="" ||  email==""){
-			/* Jquery Bootstrap Validation */
+			/* Jquery Bootstrap Validation Untuk Fungsi Validasi */
 			$(function(){
 				$("input, select, textarea").not("[type=submit]").jqBootstrapValidation();
 			});

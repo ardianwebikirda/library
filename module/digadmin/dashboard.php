@@ -142,14 +142,9 @@ if($_SESSION['login'] != 1){
 			</div><!--/. End of Container Fluid -->
 		</div><!-- /. End Page Wrapper -->
 
-		<!-- Sidebar Menus -->
-		
-		<!-- /. End of Sidebar Menus -->
-
 	</div><!-- ./End Of Wrapper-->
 
-	<!-- Call JQuery Library 
-	<script src="../../lib/js/jquery.js" type="text/javascript"></script> -->
+	<!-- Call JQuery Library -->
 	<script src="../../lib/js/jquery.min.js" type="text/javascript"></script>
 	<script src="../../lib/js/jquery-ui.js" type="text/javascript"></script>
 
@@ -158,11 +153,6 @@ if($_SESSION['login'] != 1){
 
 	<!-- Call DataTables Library -->
 	<script src="../../lib/js/jquery.dataTables.js" type="text/javascript"></script>
-
-	<!-- Call Morris Chart Library  
-	<script src="../../lib/js/plugins/morris/raphael.min.js" type="text/javascript"></script>
-	<script src="../../lib/js/plugins/morris/morris.min.js" type="text/javascript"></script>
-	<script src="../../lib/js/plugins/morris/morris-data.js" type="text/javascript"></script> -->
 
 </body>
 </html>

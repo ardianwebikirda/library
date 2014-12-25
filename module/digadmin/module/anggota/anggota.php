@@ -100,7 +100,7 @@ if($_SESSION['login'] != 1){
 						<?php
 							include "../../bin/koneksi.php";
 
-							$sql 	= "SELECT * FROM tm_anggota ORDER BY name ASC";
+							$sql 	= "SELECT * FROM tm_anggota WHERE active='Y' ORDER BY name ASC ";
 							$hasil 	= $konek->query($sql);
 							while($row = $hasil->fetch_assoc()){
 								extract($row);

@@ -38,10 +38,14 @@ include "bin/koneksi.php";
 			session_regenerate_id();
 			$sess_new = session_id();
 
+			/* Memasukan Session keladalam database secara dinamis dengan perintah Update */
 			$konek->query("UPDATE tm_users SET sess_id = '$sess_new' WHERE username = '$username'");
-			$pesan = "Login Berhasil";
-			$response = $pesan;
+			$pesan 		= "Login Berhasil";
+			$response 	= $pesan;
+
+			/* Membuat JSON file untuk dikembalikan login.js */
 			echo json_encode($response);
+		/* Apabila Username & Password tidak terdapat pada Database */
 		} else {
 			include "module/error.php";
 			$pesan = "Login Gagal, Cek Username & Password Anda..!";

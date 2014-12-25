@@ -7,15 +7,13 @@
 		<!-- Bootsrap CSS -->
 		<link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css" media="screen">
 		<link rel="stylesheet" type="text/css" href="lib/css/layout.css">
-		<link rel="stylesheet" type="text/css" href="lib/css/sweet-alert.css">
 	<body>
-		<!-- JS File -->
+		<!-- JS File Library -->
 		<script src="lib/js/jquery.min.js"></script>
 		<script src="lib/js/bootstrap.min.js"></script>
-		<script src="lib/js/sweet-alert.js"></script>
 
 		<!-- Javascript Login function -->
-<script src="function/js/login.js"></script>
+		<script src="function/js/login.js"></script>
 
 		<nav class="navbar navbar-inverse" role="navigation">
 		  <div class="container-fluid">
@@ -32,7 +30,7 @@
 		      </a>
 		    </div>
 
-		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <!-- Link Menu -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
 		      	<li class="active"><a href="?page=home" id="home">Home<span class="sr-only">(current)</span></a></li>
