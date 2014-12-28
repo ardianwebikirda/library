@@ -24,16 +24,20 @@
 			return $angka;
 		}
 	
+	/* Jika Tombol Klik Disave */
 	if($_POST['aksi']=='save'){
 		
-		$nextTgl 			= mktime(0, 0, 0, date("m"), date("d") + 2, date("Y"));
-		$nopeminjaman 		= autoNoPinjam(5,'DIG-TRS');
-		$codeanggota		= strip_tags($_POST['codeanggota']);
-		$codebuku			= strip_tags($_POST['codebuku']);
-		$tglpinjam 			= date('Y-m-d');
-		$tglkembali 		= date('Y-m-d', $nextTgl);
-		$status 			= 'Running';
-
+		$nextTgl 		= mktime(0, 0, 0, date("m"), date("d") + 2, date("Y"));
+		$nopeminjaman 	= autoNoPinjam(5,'DIG-TRS');
+		$codeanggota	= strip_tags($_POST['codeanggota']);
+		$codebuku		= strip_tags($_POST['codebuku']);
+		$tglpinjam 		= date('Y-m-d');
+		$tglkembali 	= date('Y-m-d', $nextTgl);
+		$status 		= 'Running';
+		$created 		= date('Y-m-d H:m:s');
+		$createdby 		= $_SESSION['name'];
+		$updated 		= date('Y-m-d H:m:s');
+		$updatedby 		= $_SESSION['name'];
 
 		/* Validasi Kode */
 		$sqlCek 	= "SELECT code_buku FROM temp_peminjaman WHERE code_buku='$codebuku'";
@@ -48,7 +52,11 @@
 			code_buku,
 			tgl_pinjam,
 			tgl_kembali,
-			statusbuku) 
+			statusbuku,
+			created,
+			createdby,
+			updated,
+			updatedby)  
 		VALUES
 		('',
 			'$nopeminjaman',
@@ -56,7 +64,11 @@
 			'$codebuku',
 			'$tglpinjam',
 			'$tglkembali',
-			'$status')";
+			'$status',
+			'$created',
+			'$createdby',
+			'$updated',
+			'$updatedby')";
 
 		/* Input to Database */
 		$insert = $konek->query($sqlSave);
@@ -85,23 +97,37 @@
 			$response 	= array('pesan'=>$pesan, 'data'=>array($firstname, $lastname, $email));
 			echo json_encode($response);
 		}
+
+	/* 
+	* Fungsi Untuk Menampilkan Nama Anggota / Nama Member
+	* Jika  Member Belum Meminjam Buku Maka Nama Member akan Tampil
+	* Jika Member Sedang Meminjam Buku Maka Akan Muncul teks "MEMBER INI MASIH MEMINJAM BUKU"
+	*/
 	} elseif($_POST['aksi']=='loadanggota'){
 		$code = $_POST['code'];
 		$sqlFind 	= "SELECT * FROM tm_anggota WHERE code_anggota = '$code'";
+		$sqlFind2 	= " SELECT code_anggota FROM temp_peminjaman WHERE lower(code_anggota) LIKE '%$code_anggota%'";
+		$sqlQuery2	= $konek->query($sqlFind2);
 		$hasilFind	= $konek->query($sqlFind);
 		while($row=$hasilFind->fetch_assoc()){
 			$data['data']=array('name'=>$row['name']);
 		}
 		/* Cek Status Buku */ 
-		$cekAnggota = mysqli_num_rows($hasilFind);
+		$jmlBuku 	= mysqli_num_rows($sqlQuery2);
 
 		/* Jika Buku Ditemukan */
-		if($cekAnggota>0){
+		if($jmlBuku==0){
 			echo json_encode($data['data']);
 		} else {
-			$data['data']=array('name'=>'MEMBER INI MASIH MEMINJAM BUKU');
+			$data['data']=array('name'=>'MEMBER SUDAH MEMINJAM BUKU, MAKSIMAL HANYA 1 BUKU');
 			echo json_encode($data['data']);
 		}
+	
+	/* 
+	* Fungsi Untuk Menampilkan Status Buku
+	* Jika Buku Belum Dipinjam Maka Akan Muncul Judul Buku
+	* Jika Buku Sedang Dipinjam Maka Akan Muncul teks "BUKU SEDANG DIPINJAM"
+	*/
 	} elseif($_POST['aksi']=='loadbuku'){
 		$code = $_POST['code'];
 		$sqlFind 	= "SELECT * FROM tm_buku WHERE code = '$code' AND status='Ready'";
@@ -120,7 +146,8 @@
 			$data['data']=array('name'=>'BUKU SEDANG DIPINJAM');
 			echo json_encode($data['data']);
 		}
-		
+
+	/* Fungsi PHP Untuk Membatalkan Transaksi Buku Yang Kan DIpinjam*/	
 	} elseif($_GET['id']){
 		$id 	= $_GET['id'];
 		$code 	= $_GET['code'];
@@ -134,13 +161,20 @@
 		}else{
 			echo "<script>alert('Data Gagal Dihapus');top.location='../../dashboard.php?hal=peminjaman'</script>";
 		}
+
+	/* Fungsi PHP Untuk Mengsinkronisasi dari tabel temporary ke table Transaksi */
 	} elseif($_POST['aksi']=='syncronize'){
+		/* Memanggil Function Pembuatan Auto Number (letak script  paling atas) */
 		$noPinjam 		= autoNoPinjam(5,'DIG-TRS');
+
+		/* Query MySQLi Jika ada pembatalan peminjaman buku */
 		$sqlCA 			= "SELECT code_anggota FROM temp_peminjaman LIMIT 1";
 		$queryCA 		= $konek->query($sqlCA);
 		$row 			= $queryCA->fetch_assoc();
 		$code_anggota 	= $row['code_anggota'];
-		$sqlUpdateCA 	= "UPDATE tm_anggota set isrent='Y' WHERE code_anggota='$code_anggota'";  
+		$sqlUpdateCA 	= "UPDATE tm_anggota set isrent='Y' WHERE code_anggota='$code_anggota'";
+
+		/* Query MySQLi Untuk Melakukan Proses Penyimpanan */
 		$sqlTrsPinjam 	= "CALL simpanTrsPeminjaman()";
 		$sqlSimpanTrs	= "CALL simpanTrsNoPinjam('$noPinjam')";
 		$hapusTemp 		= "DELETE FROM temp_peminjaman";

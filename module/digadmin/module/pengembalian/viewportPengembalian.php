@@ -12,9 +12,28 @@ if($_SESSION['login'] != 1){
 
 	<!-- Custom CSS -->
 	<style type="text/css">
-		.form-control{
-			padding-bottom: auto;
-			margin-bottom: 5px;
+		#nama{
+			font-weight: bold;
+			font-size: 14px;
+			color: #4A9900;
+		}
+
+		#codeanggota{
+			font-weight: bold;
+			font-size: 14px;
+			color: #4A9900;
+		}
+
+		#nopeminjaman2{
+			font-weight: bold;
+			font-size: 14px;
+			color: #4A9900;
+		}
+
+		#red{
+			font-weight: bold;
+			font-size: 14px;
+			color: #4A9900;
 		}
 	</style>
 
@@ -32,14 +51,14 @@ if($_SESSION['login'] != 1){
 	<script src="../../lib/js/dataTables.jqueryui.js" type="text/javascript"></script>
 
 	<!-- Call Custom Library -->
-	<script src="lib/jsmodule/peminjaman/peminjaman.js" type="text/javascript"></script>
+	<script src="lib/jsmodule/pengembalian/pengembalian.js" type="text/javascript"></script>
 </head>
 <body>
 	<div class="row">
 	<div class="col-lg-12">
         <ol class="breadcrumb">
             <li class="active">
-                <i class="fa fa-Desktop"></i> TRANSAKSI PEMINJAMAN
+                <i class="fa fa-edit"></i> TRANSAKSI PENGEMBALIAN
             </li>
         </ol>
     </div>
@@ -51,21 +70,21 @@ if($_SESSION['login'] != 1){
 			<div class="tabbable" id="tabs-374969">
 				<ul class="nav nav-tabs">
 					<li class="active">
-						<a href="#panel-peminjaman" data-toggle="tab"> <i class="fa fa-th-list"></i> Peminjaman</a>
+						<a href="#panel-pengembalian" data-toggle="tab"> <i class="fa fa-th-list"></i> Pengembalian</a>
 					</li>
 					<li>
-						<a href="#panel-detail-peminjaman" data-toggle="tab"><i class="fa fa-table"></i> Detail Peminjaman</a>
+						<a href="#panel-detail-pengembalian" data-toggle="tab"><i class="fa fa-table"></i> Detail Pengembalian</a>
 					</li>
 				</ul>
 				<div class="tab-content">
-					<div class="tab-pane active" id="panel-peminjaman">
+					<div class="tab-pane active" id="panel-pengembalian">
 						<p>
-							<?php include "module/peminjaman/peminjaman.php"; ?>
+							<?php include "module/pengembalian/pengembalian.php"; ?>
 						</p>
 					</div>
-					<div class="tab-pane" id="panel-detail-peminjaman">
+					<div class="tab-pane" id="panel-detail-pengembalian">
 						<p>
-							<?php include "module/peminjaman/detailPeminjaman.php";	?>
+							<?php include "module/pengembalian/detailPengembalian.php";	?>
 						</p>
 					</div>
 				</div>

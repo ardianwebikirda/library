@@ -87,13 +87,6 @@ $(document).ready(function() {
 		});
 	});
 
-	/* JQuery Load Detail Pemijaman Function */
-	$('#loadDetail').click(function(){
-		$('.formDetail').hide();
-		$('.daft').hide();
-		$('.deta').show();
-	});
-
 	/* 
 	* Event Ketika Tombol Klik for Update/Delete diklik 
 	* Maka akan memanggil function dockingForm
@@ -112,11 +105,6 @@ $(document).ready(function() {
 	$('#codebuku').autocomplete({
 		source : 'module/peminjaman/getDataBuku.php'
 	});
-
-	/* JQuery Auto Compelete Get No Peminjaman Function */
-	$('#nopeminjaman').autocomplete({
-		source : 'module/peminjaman/getNoPinjaman.php'
-	}); 
 
 	/* JQuery Load Data Nama Anggota Function */
 	$('#codeanggota').keyup(function(oe){

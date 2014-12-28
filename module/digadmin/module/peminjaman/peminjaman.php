@@ -1,13 +1,13 @@
 					<style type="text/css">
 					#judul-buku{
 						font-weight: bold;
-						font-size: 14px;
+						font-size: 12px;
 						color: #4A9900;
 					}
 
 					#nama{
 						font-weight: bold;
-						font-size: 14px;
+						font-size: 12px;
 						color: #4A9900;
 					}
 					</style>
@@ -42,14 +42,22 @@
 										<input type="text" class="form-control" id="judul-buku" name="judul-buku" 
 										disabled="disabled" required> 
 									</div>
+									<ul class="breadcrumb">
+									<li>
 									<button type="submit" id="save" name="save" value="save" class="btn btn-sm btn-success">Tambah</button>
-									<button type="button" id="syncronize" name="syncronize" class="btn btn-sm btn-warning">Syncronize</button>
-									<button type="reset" id="reset" class="btn btn-sm btn-primary">Reset</button>						
+									<button type="reset" id="reset" class="btn btn-sm btn-primary">Reset</button>
+									</li>
+									</ul>						
 								</form><!-- /. End Form CRUD Book Master -->
 							</div><!-- /. End Form Place -->
 
 							<!-- Datagrid Place -->
 							<div class="col-md-7 column">
+								<ul class="breadcrumb">
+								<li>
+									<button type="button" id="syncronize" name="syncronize" class="btn btn-sm btn-warning">Syncronize</button>
+								</li>
+								</ul>
 								<table id="tablepeminjaman" class="display" cellspacing="0">
 									<thead>
 										<tr>

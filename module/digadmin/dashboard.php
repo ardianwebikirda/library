@@ -132,7 +132,7 @@ if($_SESSION['login'] != 1){
 						include "module/peminjaman/viewportPeminjaman.php";
 						break;
 					case "pengembalian":
-						include "module/pengembalian.php";
+						include "module/pengembalian/viewportPengembalian.php";
 						break;
 					case "laporan":
 						include "module/laporan/laporan.php";

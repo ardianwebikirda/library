@@ -5,32 +5,39 @@
 							<!-- Datagrid Place -->
 							<div class="col-md-12 column daft">
 								<ul class="breadcrumb">
-									<li><i class="fa fa-th-list"></i> <b>Detail Peminjaman</b></li>
+									<li><i class="fa fa-th-list"></i> <b>Detail Pengembalian</b></li>
+									<li>Apabila Denda Bernilai Minus(-) atau 0 Maka Tidak Ada Denda</li>
 								</ul>
-								<table id="daftarpeminjaman" class="display" cellspacing="0">
+								<table id="daftarpengembalian" class="display" cellspacing="0">
 									<thead>
 										<tr>
 											<th>No Peminjaman</th>
 											<th>Nama</th>
 											<th>Judul</th>
-											<th>Print</th>
+											<th>Tgl Kembali</th>
+											<th>Lama Pinjam</th>
+											<th>Denda</th>
+											<th>Print Out</th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php
 											include "../../bin/koneksi.php";
 
-											$sql 	= "SELECT * FROM view_trspeminjaman WHERE statusbuku='Running'";
+											$sql 	= "SELECT * FROM view_trspeminjaman WHERE statusbuku='OutOfDate'";
 											$hasil 	= $konek->query($sql);
 											while($row = $hasil->fetch_assoc()){
 												extract($row);
 
 												echo"
 													<tr>
-														<td id='nopeminjaman3'>{$nopeminjaman}</td>
+														<td>{$nopeminjaman}</td>
 														<td>{$nama}</td>
 														<td>{$judul}</td>
-														<td><button type='printout' id='printout' class='btn btn-sm btn-success'>Cetak Faktur</button></td>
+														<td>{$tgl_pengembalian}</td>
+														<td>{$lamapinjam} Hari</td>
+														<td>{$denda}</td>
+														<td><button type='printout' id='printout' class='btn btn-sm btn-warning'>Cetak Faktur</button></td>
 													</tr>";
 											}
 										?>                		
