@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2014 at 10:37 PM
+-- Generation Time: Jan 02, 2015 at 09:00 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `temp_peminjaman` (
   `createdby` varchar(15) NOT NULL,
   `updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updatedby` varchar(15) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -137,9 +137,9 @@ CREATE TABLE IF NOT EXISTS `tm_anggota` (
 --
 
 INSERT INTO `tm_anggota` (`id_anggota`, `code_anggota`, `name`, `email`, `phone`, `active`, `isrent`, `created`, `createdby`, `updated`, `updatedby`) VALUES
-(14, 'USR0001', 'H Sulam', 'Sugeng@sugeng.net', '083244567888', 'Y', 'N', '2014-12-28 14:10:38', 'Administrator', '2014-12-20 12:12:11', 'Administrator'),
-(15, 'USR0002', 'H. Muhidin', 'muhidin@muhidin.net', '085227890999', 'Y', 'N', '2014-12-28 15:23:39', 'Administrator', '2014-12-23 00:12:53', 'Administrator'),
-(16, 'USR0003', 'Frediie', 'fredie@fr.net', '0899007654', 'Y', 'N', '2014-12-28 14:41:36', 'Administrator', '2014-12-25 07:12:59', 'Administrator');
+(14, 'USR0001', 'H Sulam', 'Sugeng@sugeng.net', '083244567888', 'Y', 'N', '2014-12-31 04:44:42', 'Administrator', '2014-12-20 12:12:11', 'Administrator'),
+(15, 'USR0002', 'H. Muhidin', 'muhidin@muhidin.net', '085227890999', 'Y', 'N', '2014-12-31 04:50:50', 'Administrator', '2014-12-23 00:12:53', 'Administrator'),
+(16, 'USR0003', 'Frediie', 'fredie@fr.net', '0899007654', 'Y', 'N', '2014-12-31 09:34:42', 'Administrator', '2014-12-25 07:12:59', 'Administrator');
 
 -- --------------------------------------------------------
 
@@ -174,7 +174,7 @@ INSERT INTO `tm_buku` (`id_buku`, `code_author`, `code`, `name`, `poy`, `publish
 (5, 'AUT0001', 'DIG005', 'Mechanical Dekstop Enginee', 2014, 'DigTuts', '2014-11-27', 'Ready', '2014-11-27 10:00:00', 'SYSTEM', '2014-11-27 10:00:00', 'SYSTEM'),
 (6, 'AUT0001', 'DIG006', 'Inventor Fundamental', 2014, 'DigTuts', '2014-11-28', 'Ready', '2014-11-27 10:00:00', 'SYSTEM', '2014-11-27 10:00:00', 'SYSTEM'),
 (8, 'AUT0001', 'DIG007', 'Inventor For Manufacture Machine', 2014, 'DigTuts', '2014-11-28', 'Ready', '2014-11-27 10:00:00', 'SYSTEM', '2014-11-27 10:00:00', 'SYSTEM'),
-(9, 'AUT0001', 'DIG008', '3D Max', 2014, 'DigTuts', '2014-11-29', 'Ready', '2014-11-27 10:00:00', 'SYSTEM', '2014-11-27 10:00:00', 'SYSTEM'),
+(9, 'AUT0001', 'DIG008', '3D Max Car Design', 2014, 'DigTuts', '2014-11-29', 'Ready', '2014-11-27 10:00:00', 'SYSTEM', '2014-12-31 09:12:17', 'Yohanes Bintang'),
 (10, 'AUT0002', 'DIG009', 'PHP Programming', 2014, 'DigTuts', '2014-12-10', 'Ready', '2014-12-09 17:00:00', 'SYSTEM', '2014-12-15 09:12:34', 'Administrator'),
 (11, 'AUT0002', 'DIG010', 'PHP Webservice', 2014, 'DigTuts', '2014-12-12', 'Ready', '2014-12-15 06:12:23', 'Administrator', '2014-12-15 09:12:51', 'Administrator'),
 (12, 'AUT0002', 'DIG011', 'Extjs Development Cookbook', 2014, 'DigTuts', '2014-12-11', 'Ready', '2014-12-15 06:12:11', 'Administrator', '2014-12-15 09:12:29', 'Administrator'),
@@ -279,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `tm_users` (
 --
 
 INSERT INTO `tm_users` (`id_users`, `id_group`, `username`, `password`, `name`, `sess_id`, `active`) VALUES
-(2, 1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Administrator', 'f0t9or1klmt6toq1n32fuvlma0', 'Y');
+(2, 1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Yohanes Bintang', 'sf6i37lva6b1a9ugtcbih4bmn5', 'Y');
 
 -- --------------------------------------------------------
 
@@ -290,7 +290,15 @@ INSERT INTO `tm_users` (`id_users`, `id_group`, `username`, `password`, `name`, 
 CREATE TABLE IF NOT EXISTS `trs_nopeminjaman` (
 `id_nopeminjaman` int(11) NOT NULL,
   `nopeminjaman` varchar(15) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `trs_nopeminjaman`
+--
+
+INSERT INTO `trs_nopeminjaman` (`id_nopeminjaman`, `nopeminjaman`) VALUES
+(9, 'DIG-TRS00001'),
+(10, 'DIG-TRS00002');
 
 -- --------------------------------------------------------
 
@@ -310,7 +318,15 @@ CREATE TABLE IF NOT EXISTS `trs_peminjaman` (
   `createdby` varchar(50) NOT NULL,
   `updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updatedby` varchar(50) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `trs_peminjaman`
+--
+
+INSERT INTO `trs_peminjaman` (`id_trspeminjaman`, `nopeminjaman`, `code_anggota`, `code_buku`, `tgl_pinjam`, `tgl_kembali`, `statusbuku`, `created`, `createdby`, `updated`, `updatedby`) VALUES
+(9, 'DIG-TRS00001', 'USR0003', 'dig003', '2014-12-31', '2015-01-02', 'OutOfDate', '2014-12-31 07:34:12', 'Yohanes Bintang', '2014-12-31 07:12:40', 'Yohanes Bintang'),
+(10, 'DIG-TRS00002', 'USR0003', 'dig001', '2014-12-31', '2015-01-02', 'OutOfDate', '2014-12-31 09:34:42', 'Yohanes Bintang', '2014-12-31 09:12:58', 'Yohanes Bintang');
 
 -- --------------------------------------------------------
 
@@ -331,7 +347,15 @@ CREATE TABLE IF NOT EXISTS `trs_pengembalian` (
   `createdby` varchar(50) NOT NULL,
   `updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updatedby` varchar(15) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+
+--
+-- Dumping data for table `trs_pengembalian`
+--
+
+INSERT INTO `trs_pengembalian` (`id_pengembalian`, `nopengembalian`, `nopeminjaman`, `tgl_dikembalikan`, `lama_pinjam`, `keterlambatan`, `denda`, `iscomplete`, `created`, `createdby`, `updated`, `updatedby`) VALUES
+(22, 'DIG-RTN00001', 'DIG-TRS00001', '2014-12-31', 0, 0, 0, 'Y', '2014-12-31 07:12:12', 'Yohanes Bintang', '2014-12-31 07:12:12', 'Yohanes Bintang'),
+(23, 'DIG-RTN00002', 'DIG-TRS00002', '2014-12-31', 0, 0, 0, 'Y', '2014-12-31 09:12:42', 'Yohanes Bintang', '2014-12-31 09:12:42', 'Yohanes Bintang');
 
 -- --------------------------------------------------------
 
@@ -401,11 +425,30 @@ CREATE TABLE IF NOT EXISTS `view_trspeminjaman` (
 `code_anggota` varchar(15)
 ,`tgl_pinjam` date
 ,`tgl_kembali` date
+,`lamapinjam` int(7)
+,`keterlambatan` int(8)
+,`denda` bigint(12)
+,`nopeminjaman` varchar(15)
+,`statusbuku` enum('Running','OutOfDate')
+,`code_buku` varchar(15)
+,`nama` varchar(50)
+,`judul` varchar(50)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `view_trspengembalian`
+--
+CREATE TABLE IF NOT EXISTS `view_trspengembalian` (
+`code_anggota` varchar(15)
+,`tgl_pinjam` date
+,`tgl_kembali` date
 ,`tgl_pengembalian` date
 ,`lamapinjam` int(7)
 ,`keterlambatan` int(8)
 ,`denda` bigint(12)
 ,`nopeminjaman` varchar(15)
+,`nopengembalian` varchar(15)
 ,`statusbuku` enum('Running','OutOfDate')
 ,`code_buku` varchar(15)
 ,`nama` varchar(50)
@@ -445,7 +488,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_trspeminjaman`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_trspeminjaman` AS select `trs_peminjaman`.`code_anggota` AS `code_anggota`,`trs_peminjaman`.`tgl_pinjam` AS `tgl_pinjam`,`trs_peminjaman`.`tgl_kembali` AS `tgl_kembali`,curdate() AS `tgl_pengembalian`,(to_days(curdate()) - to_days(`trs_peminjaman`.`tgl_pinjam`)) AS `lamapinjam`,((to_days(curdate()) - to_days(`trs_peminjaman`.`tgl_pinjam`)) - 3) AS `keterlambatan`,(((to_days(curdate()) - to_days(`trs_peminjaman`.`tgl_pinjam`)) - 3) * 1000) AS `denda`,`trs_nopeminjaman`.`nopeminjaman` AS `nopeminjaman`,`trs_peminjaman`.`statusbuku` AS `statusbuku`,`trs_peminjaman`.`code_buku` AS `code_buku`,`tm_anggota`.`name` AS `nama`,`tm_buku`.`name` AS `judul` from (((`trs_nopeminjaman` join `trs_peminjaman` on((`trs_nopeminjaman`.`nopeminjaman` = `trs_peminjaman`.`nopeminjaman`))) join `tm_anggota` on((`trs_peminjaman`.`code_anggota` = `tm_anggota`.`code_anggota`))) join `tm_buku` on((`trs_peminjaman`.`code_buku` = `tm_buku`.`code`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_trspeminjaman` AS select `trs_peminjaman`.`code_anggota` AS `code_anggota`,`trs_peminjaman`.`tgl_pinjam` AS `tgl_pinjam`,`trs_peminjaman`.`tgl_kembali` AS `tgl_kembali`,(to_days(curdate()) - to_days(`trs_peminjaman`.`tgl_pinjam`)) AS `lamapinjam`,((to_days(curdate()) - to_days(`trs_peminjaman`.`tgl_pinjam`)) - 3) AS `keterlambatan`,(((to_days(curdate()) - to_days(`trs_peminjaman`.`tgl_pinjam`)) - 3) * 1000) AS `denda`,`trs_nopeminjaman`.`nopeminjaman` AS `nopeminjaman`,`trs_peminjaman`.`statusbuku` AS `statusbuku`,`trs_peminjaman`.`code_buku` AS `code_buku`,`tm_anggota`.`name` AS `nama`,`tm_buku`.`name` AS `judul` from (((`trs_nopeminjaman` join `trs_peminjaman` on((`trs_nopeminjaman`.`nopeminjaman` = `trs_peminjaman`.`nopeminjaman`))) join `tm_anggota` on((`trs_peminjaman`.`code_anggota` = `tm_anggota`.`code_anggota`))) join `tm_buku` on((`trs_peminjaman`.`code_buku` = `tm_buku`.`code`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_trspengembalian`
+--
+DROP TABLE IF EXISTS `view_trspengembalian`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_trspengembalian` AS select `trs_peminjaman`.`code_anggota` AS `code_anggota`,`trs_peminjaman`.`tgl_pinjam` AS `tgl_pinjam`,`trs_peminjaman`.`tgl_kembali` AS `tgl_kembali`,`trs_pengembalian`.`tgl_dikembalikan` AS `tgl_pengembalian`,(to_days(curdate()) - to_days(`trs_peminjaman`.`tgl_pinjam`)) AS `lamapinjam`,((to_days(curdate()) - to_days(`trs_peminjaman`.`tgl_pinjam`)) - 3) AS `keterlambatan`,(((to_days(curdate()) - to_days(`trs_peminjaman`.`tgl_pinjam`)) - 3) * 1000) AS `denda`,`trs_nopeminjaman`.`nopeminjaman` AS `nopeminjaman`,`trs_pengembalian`.`nopengembalian` AS `nopengembalian`,`trs_peminjaman`.`statusbuku` AS `statusbuku`,`trs_peminjaman`.`code_buku` AS `code_buku`,`tm_anggota`.`name` AS `nama`,`tm_buku`.`name` AS `judul` from ((((`trs_nopeminjaman` join `trs_peminjaman` on((`trs_nopeminjaman`.`nopeminjaman` = `trs_peminjaman`.`nopeminjaman`))) join `tm_anggota` on((`trs_peminjaman`.`code_anggota` = `tm_anggota`.`code_anggota`))) join `tm_buku` on((`trs_peminjaman`.`code_buku` = `tm_buku`.`code`))) join `trs_pengembalian` on((`trs_peminjaman`.`nopeminjaman` = `trs_pengembalian`.`nopeminjaman`)));
 
 --
 -- Indexes for dumped tables
@@ -536,7 +588,7 @@ MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `temp_peminjaman`
 --
 ALTER TABLE `temp_peminjaman`
-MODIFY `id_temp` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id_temp` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tm_anggota`
 --
@@ -571,17 +623,17 @@ MODIFY `id_users` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `trs_nopeminjaman`
 --
 ALTER TABLE `trs_nopeminjaman`
-MODIFY `id_nopeminjaman` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `id_nopeminjaman` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `trs_peminjaman`
 --
 ALTER TABLE `trs_peminjaman`
-MODIFY `id_trspeminjaman` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `id_trspeminjaman` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `trs_pengembalian`
 --
 ALTER TABLE `trs_pengembalian`
-MODIFY `id_pengembalian` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id_pengembalian` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `trs_role_menu`
 --

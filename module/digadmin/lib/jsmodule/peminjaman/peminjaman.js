@@ -142,4 +142,9 @@ $(document).ready(function() {
 	$('#reset').click(function(){
 		resetForm();
 	});
+
+	/* Jquery Print Area */
+	$('#cetak').click(function(){
+		$('.panel').hide();
+	});
 });

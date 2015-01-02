@@ -32,24 +32,6 @@ $(document).ready(function() {
 		jQueryUI: true
 	});
 
-	/* JQuery Syncronize Function */
-	$('#syncronize').click(function(){
-		var aksi = "syncronize";
-		$.ajax({
-			type 		: 'POST',
-			data 		: {
-				aksi : aksi
-			},
-			dataType 	: 'JSON',
-			url			: 'module/pengembalian/aksipengembalian.php',
-			success:function(data){
-				alert(data.pesan);
-				resetForm();
-				location.reload();
-			}
-		});
-	});
-
 	/* 
 	* Event Ketika Tombol Kembalikan Di Klik
 	*/
@@ -57,14 +39,18 @@ $(document).ready(function() {
 		var aksi 			= "kembalikan";
 		var nopeminjaman	= $('#nopeminjaman2').text();
 		$.ajax({
+			type 		: 'POST',	
 			url 		: 'module/pengembalian/aksipengembalian.php',
-			data 		: {aksi:aksi, nopeminjaman:nopeminjaman},
-			type 		: 'POST',
-			dataType 	: 'json',
-			success:function(data){
-				alert(data.pesan);
+			data 		: {
+				aksi : aksi, 
+				nopeminjaman : nopeminjaman
+			},
+			dataType 	: 'JSON',
+			success:function(response){
+				alert(response.pesan);
 				resetForm();
 				location.reload();
+				window.location='dashboard.php?hal=pengembalian';
 			}
 		});
 	});

@@ -24,7 +24,7 @@
 										<?php
 											include "../../bin/koneksi.php";
 
-											$sql 	= "SELECT * FROM view_trspeminjaman WHERE statusbuku='OutOfDate'";
+											$sql 	= "SELECT * FROM view_trspengembalian WHERE statusbuku='OutOfDate'";
 											$hasil 	= $konek->query($sql);
 											while($row = $hasil->fetch_assoc()){
 												extract($row);
@@ -37,7 +37,13 @@
 														<td>{$tgl_pengembalian}</td>
 														<td>{$lamapinjam} Hari</td>
 														<td>{$denda}</td>
-														<td><button type='printout' id='printout' class='btn btn-sm btn-warning'>Cetak Faktur</button></td>
+														<td>
+															<a href='?hal=printPengembalian&idp=$row[nopeminjaman]'>
+															<button type='printout' id='printout' class='btn btn-sm btn-info'>
+															<i class=' fa fa-file-text'></i> Lihat Faktur
+															</button>
+															</a>
+														</td>
 													</tr>";
 											}
 										?>                		

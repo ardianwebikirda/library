@@ -32,6 +32,10 @@ if($_SESSION['login'] != 1){
 
 	<!-- Jquery - UI -->
 	<link rel="stylesheet" type="text/css" href="../../lib/css/jquery-ui.css">
+
+	<!-- Jquery - UI -->
+	<link rel="stylesheet" type="text/css" href="../../lib/css/morris.css">
+
 	<!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -131,12 +135,19 @@ if($_SESSION['login'] != 1){
 					case "peminjaman":
 						include "module/peminjaman/viewportPeminjaman.php";
 						break;
+					case "printPeminjaman":
+						include "module/peminjaman/printPeminjaman.php";
+						break;
 					case "pengembalian":
 						include "module/pengembalian/viewportPengembalian.php";
 						break;
-					case "laporan":
-						include "module/laporan/laporan.php";
+					case "printPengembalian":
+						include "module/pengembalian/printPengembalian.php";
 						break;
+					case "laporan":
+						include "module/laporan/viewportLaporan.php";
+						break;
+
 				}
 			?>
 			</div><!--/. End of Container Fluid -->
@@ -153,6 +164,9 @@ if($_SESSION['login'] != 1){
 
 	<!-- Call DataTables Library -->
 	<script src="../../lib/js/jquery.dataTables.js" type="text/javascript"></script>
+
+	<!-- Call Chart Library -->
+	<script src="../../lib/js/highcharts.js" type="text/javascript"></script>
 
 </body>
 </html>

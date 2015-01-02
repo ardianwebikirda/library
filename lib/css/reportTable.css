@@ -1,0 +1,23 @@
+.container {
+	width: 970px;
+	margin: auto;
+	text-align: center;
+}
+.tengah {
+	text-align: center;
+}
+table {
+	border: 1px solid #F2E2CB;
+	border-collapse: collapse;
+	width:100%;
+}
+table td {
+	border: 1px solid #4A4A49;
+	padding: 10px;
+}
+table th {
+	border: 1px solid #4A4A49;
+	background-color: #F2E2CB;
+	color: #4A4A49;
+	padding: 10px
+}

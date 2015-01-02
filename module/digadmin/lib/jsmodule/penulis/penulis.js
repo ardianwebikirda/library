@@ -24,13 +24,6 @@ $(document).ready(function() {
 		$('#cd-update').show();
 	}
 
-	function validbro(){
-		/* Jquery Bootstrap Validation */
-		$(function(){
-			$("input, select, textarea").not("[type=submit]").jqBootstrapValidation();
-		});
-	}
-
 	/* Function Pertama Yang Akan DiLoad */
 	resetForm();
 	$('#cd-update').hide();

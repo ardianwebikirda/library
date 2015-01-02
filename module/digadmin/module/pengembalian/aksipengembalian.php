@@ -7,7 +7,7 @@
 		*/
 		function autoNoPinjam($lebar=0, $awalan=''){
 			include "../../../../bin/koneksi.php";
-			$sqlcount= "SELECT nopengembalian FROM trs_nopengembalian ORDER BY nopengembalian DESC";
+			$sqlcount= "SELECT nopengembalian FROM trs_pengembalian ORDER BY nopengembalian DESC";
 			$hasil= $konek->query($sqlcount);
 			$jumlahrecord = mysqli_num_rows($hasil);
 
@@ -34,7 +34,7 @@
 		
 		$nopengembalian = autoNoPinjam(5,'DIG-RTN');
 		$nopeminjaman	= strip_tags($_POST['nopeminjaman']);
-		$tglKembali 	= $data['tgl_pengembalian'];
+		$tglKembali 	= date("Y-m-d");
 		$lamapinjam 	= $data['lamapinjam'];
 		
 		if($data['lamapinjam'] <= 0){
@@ -57,11 +57,6 @@
 		/* Variabel Untuk Membuat Default Data */
 		$codebuku 		= $data['code_buku'];
 		$codeanggota 	= $data['code_anggota'];
-
-		/* Validasi Kode */
-		$sqlCek 	= "SELECT nopengembalian FROM trs_pengembalian WHERE nopengembalian='$nopengembalian' AND statusbuku='Running'";
-		$output 	= $konek->query($sqlCek);
-		$cekData	= mysqli_num_rows($output);
 
 		/* Query INSERT */
 		$sqlSave = "INSERT INTO 
@@ -102,15 +97,20 @@
 		$updateMember 		= $konek->query($sqlUpdateMember);
 		$updatePinjam 		= $konek->query($sqlUpdatePinjam);
 
+		/* Validasi Kode */
+		$sqlCek 	= "SELECT nopengembalian FROM trs_pengembalian WHERE nopengembalian='$nopengembalian'";
+		$output 	= $konek->query($sqlCek);
+		$cekData	= mysqli_num_rows($output);
+
 		/*Jika Code Buku Tidak Ada */
-		if($cekData == 0){
+		if($cekData == 1){
 
 			/* Cek Data After Insert */
 			$cekInsertData 	= "SELECT nopeminjaman FROM trs_pengembalian WHERE nopeminjaman = '$nopeminjaman'";
 			$outputInsert 	= $konek->query($cekInsertData);
 			$cekDataInsert	= mysqli_num_rows($outputInsert);
 			if($cekDataInsert == 1){
-				$pesan 		= "Data Berhasil Disimpan";
+				$pesan 		= "Buku Telah Dikembalikan";
 				$response 	= array('pesan'=>$pesan, 'data'=>array($nopengembalian, $nopeminjaman));
 				echo json_encode($response);
 

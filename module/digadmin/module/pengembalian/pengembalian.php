@@ -21,7 +21,7 @@ if($_SESSION['login'] != 1){
 		<div class="row-fluid clearfix">
 
 			<!-- Form Place -->
-			<div class="col-md-4 column">
+			<div class="col-md-4 column" id="formKembali">
 				<ul class="breadcrumb">
 					<li><i class="fa fa-th-list"></i> <b>Trasaksi Pengembalian</b></li>
 				</ul>
@@ -50,10 +50,10 @@ if($_SESSION['login'] != 1){
 			</div><!-- /. End Form Place -->
 
 			<!-- Datagrid Place -->
-			<div class="col-md-8 column">
+			<div class="col-md-8 column" id="gridKembali">
 				<ul class="breadcrumb">
 				<li>
-					<button type="submit" id="kembalikan" name="kembalikan" value="kembalikan" class="btn btn-sm btn-info">Kembalikan</button>
+					<button type="button" id="kembalikan" name="kembalikan" class="btn btn-sm btn-info">Kembalikan</button>
 				</li>
 				</ul>				
 				<table id="tablepengembalian" class="display" cellspacing="0">
