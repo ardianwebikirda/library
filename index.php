@@ -26,7 +26,7 @@
 		        <span class="icon-bar"></span>
 		      </button>
 		      <a class="navbar-brand" href="?page=home">
-		      	<img alt="Brand" src="lib/img/digtuts.png">
+		      	<img alt="Brand" src="lib/images/digtuts.png">
 		      </a>
 		    </div>
 
@@ -66,7 +66,7 @@
 		<!-- Footer -->
 		<nav class="navbar navbar-inverse navbar-fixed-bottom">
   			<div class="footer">
-  				Copyright &copy; 2014 DigTuts.com. All Rights Reserved
+  				Copyright &copy; 2014 DigTuts.com. All Right Reserved
   			</div>
 		</nav> <!-- /.End Footer -->
 	</body>
